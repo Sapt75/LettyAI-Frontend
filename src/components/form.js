@@ -3,9 +3,13 @@ import { useState, useEffect } from "react"
 
 export default function Form() {
 
+    //Using state to store lists of user 
     const [user, setuser] = useState()
+
+    //Using state to set the data of the searched user
     const [search, setsearch] = useState()
 
+    //Sending post req to node js backend to save users data
     function handelSubmit(event) {
 
         const { fname, lname, email, city } = event.target
@@ -21,6 +25,7 @@ export default function Form() {
         window.location.replace('/')
     }
 
+    //Sending get request to node js backend to get all the user data
     async function fetchUser() {
         const data = await fetch('https://wild-puce-capybara-hat.cyclic.app/user')
         const response = await data.json()
@@ -32,6 +37,7 @@ export default function Form() {
     }, [])
 
 
+    //Sending get request to node js backend to get the user data that matches with the MongoDB _id
     async function handelSearch(event) {
         event.preventDefault()
         let data = await fetch(`https://wild-puce-capybara-hat.cyclic.app/search/${event.target.search.value}`)
